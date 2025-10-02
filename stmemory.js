@@ -401,9 +401,9 @@ async function generateMemoryWithAI(promptString, profile) {
         // Prepare connection info
         const apiType = conn.api || getCurrentApiInfo().api;
         const extra = {};
-        if (oai_settings.openai_max_tokens) {
-            extra.max_tokens = oai_settings.openai_max_tokens;
-        }
+        console.log(profile);
+        extra.max_tokens = extension_settings.STMemoryBooks?.summaryLength ?? 300;
+
 
         const { text: aiResponseText } = await sendRawCompletionRequest({
             model: conn.model,
@@ -592,10 +592,11 @@ function formatSceneForAI(messages, metadata, previousSummariesContext = []) {
  * @returns {Promise<{input: number, output: number, total: number}>} An object with token counts.
  */
 async function estimateTokenUsage(promptString) {
+    const summaryLength = extension_settings.STMemoryBooks?.summaryLength ?? 300;
     try {
         const inputTokens = await getTokenCount(promptString);
         // A reasonable estimate for a memory summary output
-        const estimatedOutputTokens = 300; // Slightly higher for JSON structure
+        const estimatedOutputTokens = summaryLength; // Slightly higher for JSON structure
         
         return {
             input: inputTokens,
@@ -607,8 +608,8 @@ async function estimateTokenUsage(promptString) {
         const inputTokens = Math.ceil(charCount / 4); // A common approximation
         return {
             input: inputTokens,
-            output: 300,
-            total: inputTokens + 300
+            output: summaryLength,
+            total: inputTokens + summaryLength
         };
     }
 }

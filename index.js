@@ -47,6 +47,7 @@ const defaultSettings = {
         showNotifications: true,
         refreshEditor: true,
         tokenWarningThreshold: 30000,
+        summaryLength: 1000,
         defaultMemoryCount: 0,
         autoClearSceneAfterMemory: false,
         manualModeEnabled: false,
