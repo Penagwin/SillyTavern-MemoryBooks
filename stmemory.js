@@ -402,7 +402,7 @@ async function generateMemoryWithAI(promptString, profile) {
         const apiType = conn.api || getCurrentApiInfo().api;
         const extra = {};
         console.log(profile);
-        extra.max_tokens = extension_settings.STMemoryBooks?.summaryLength ?? 300;
+        extra.max_tokens = extension_settings.STMemoryBooks?.summaryLength ?? 1000;
 
 
         const { text: aiResponseText } = await sendRawCompletionRequest({
