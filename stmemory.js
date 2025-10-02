@@ -401,7 +401,7 @@ async function generateMemoryWithAI(promptString, profile) {
         // Prepare connection info
         const apiType = conn.api || getCurrentApiInfo().api;
         const extra = {};
-        console.log(profile);
+        console.log("PROFILE " + profile);
         extra.max_tokens = extension_settings.STMemoryBooks?.summaryLength ?? 1000;
 
 
@@ -592,7 +592,7 @@ function formatSceneForAI(messages, metadata, previousSummariesContext = []) {
  * @returns {Promise<{input: number, output: number, total: number}>} An object with token counts.
  */
 async function estimateTokenUsage(promptString) {
-    const summaryLength = extension_settings.STMemoryBooks?.summaryLength ?? 300;
+    const summaryLength = extension_settings.STMemoryBooks?.summaryLength ?? 1000;
     try {
         const inputTokens = await getTokenCount(promptString);
         // A reasonable estimate for a memory summary output
